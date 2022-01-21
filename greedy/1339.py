@@ -1,13 +1,22 @@
 if __name__ == "__main__":
     n = int(input())
-    alpha = {'A':0,
-             'B':0,
-             'C':0,
-             'D':0,
-             'E':0,
-             'F':0,
-             'G':0,
-             'H':0,
-             'I':0,}
+    alpha = {}
+    result = 0
+    for i in range(n):
+        word = input()
+        max_len = len(word)
+        for j in range(len(word)):
+            try:
+                alpha[word[j]] += 10**(max_len - j - 1)
+            except KeyError:
+                alpha[word[j]] = 10**(max_len - j - 1)
+
+    sort_alpha = sorted(alpha.items(), key=lambda x:x[1], reverse=True)
+    start = 9
+    for i in sort_alpha:
+        result += i[1] * start
+        start -= 1
+
+    print(result)
 
 
