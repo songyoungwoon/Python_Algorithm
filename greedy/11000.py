@@ -1,9 +1,7 @@
 import sys
 from queue import PriorityQueue
-import time
 
 if __name__ == "__main__":
-    start = time.time()
     n = int(input())
     lecture = list()
     for i in range(n):
@@ -31,8 +29,6 @@ if __name__ == "__main__":
                 else:
                     lecture.append((s, t))
     print(result)
-    end = time.time()
-    print(end - start)
 
 
 
