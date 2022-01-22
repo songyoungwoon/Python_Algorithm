@@ -6,16 +6,9 @@ if __name__ == "__main__":
         w = list(map(int, input().split()))
         w.sort()
 
-        fw = list()
-        bw = list()
-        for j in range(int(len(w)/2 + 1)):
-            if len(w) > 0:
-                fw.append(w.pop(0))
-            if len(w) > 0:
-                bw.insert(0, w.pop(0))
-        fw += bw
         distance = list()
-        distance.append(abs(fw[0] - fw[len(fw) - 1]))
-        for j in range(len(fw) - 1):
-            distance.append(abs(fw[j + 1] - fw[j]))
+        distance.append(abs(w[0] - w[1]))
+        distance.append(abs(w[len(w) - 1] - w[len(w) - 2]))
+        for j in range(len(w) - 2):
+            distance.append(abs(w[j] - w[j + 2]))
         print(max(distance))
