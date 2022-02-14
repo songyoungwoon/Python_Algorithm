@@ -1,29 +1,31 @@
-import sys
 import copy
 from collections import deque
 input = __import__('sys').stdin.readline
 if __name__ == "__main__":
     n = int(input())
-    l = [list(map(int, input().split())) for _ in range(n)]
-    min_h = sys.maxsize
-    max_h = 0
-    max_count = 0
-    dxdy = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    board = []
+    rgb = [list(input()) for _ in range(n)]
+    rrb = copy.deepcopy(rgb)
+
     for i in range(n):
         for j in range(n):
-            if l[i][j] < min_h:
-                min_h = l[i][j]
-            if l[i][j] > max_h:
-                max_h = l[i][j]
-    for r_h in range(min_h, max_h):
-        temp_l = copy.deepcopy(l)
+            if rgb[i][j] == 'G':
+                rrb[i][j] = 'R'
+
+    board.append(rgb)
+    board.append(rrb)
+    dxdy = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+    answer = []
+    for b in board:
         count = 0
         visit = [[False]*n for _ in range(n)]
+        color = ''
         for i in range(n):
             for j in range(n):
-                if visit[i][j] == True or temp_l[i][j] <= r_h:
+                if visit[i][j] == True:
                     continue
                 visit[i][j] = True
+                color = b[i][j]
                 q = deque()
                 q.append((i, j))
                 while q:
@@ -32,14 +34,12 @@ if __name__ == "__main__":
                         dx, dy = x + d[0], y + d[1]
                         if dx >= n or dx < 0 or dy >= n or dy < 0:
                             continue
-                        if visit[dx][dy] == True or temp_l[dx][dy] <= r_h:
+                        if visit[dx][dy] == True:
                             continue
-                        visit[dx][dy] = True
-                        q.append((dx, dy))
+                        if b[dx][dy] == color:
+                            visit[dx][dy] = True
+                            q.append((dx, dy))
                 count += 1
-        max_count = max(max_count, count)
-    if max_count == 0:
-        print(1)
-    else:
-        print(max_count)
+        answer.append(count)
+    print(answer[0], answer[1])
 
