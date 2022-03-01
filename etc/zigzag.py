@@ -1,5 +1,4 @@
 input = __import__('sys').stdin.readline
-
 if __name__ == "__main__":
     n, r, c = map(int, input().split())
 
